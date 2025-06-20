@@ -12,11 +12,17 @@ The test demonstrates an inconsistency in how Bun resolves dependencies when usi
 
    ```bash
    rm -rf node_modules
-   bun install
+   bun install --frozen-lockfile
    grep '"version"' node_modules/mime/package.json | sed 's/.*"version": "\(.*\)".*/\1/'
    ```
 
    **Result:** Returns `1.6.0` (matches bun.lock)
+
+   ```bash
+   grep '"version"' node_modules/postcss-url/node_modules/mime/package.json | sed 's/.*"version": "\(.*\)".*/\1/'
+   ```
+
+   **Result:** Returns `2.5.2` (matches bun.lock)
 
 2. **Filtered installation with frozen lockfile (unexpected behavior):**
    ```bash
